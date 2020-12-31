@@ -7,5 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 users = User.create([{ name: 'Jennifer Beaver' }, { name: 'Taher Ali' }])
+
 recordings = Recording.create([{ title: 'NewRecordingForJenniferBeaver', melody: 'LaLa.wav/link', user_id: 1 },
-                                { title: 'NewRecordingForTaherAli', melody: 'DoDo.wav/link', user_id: 2 } ])
+{ title: 'NewRecordingForTaherAli', melody: 'DoDo.wav/link', user_id: 2 } ])
