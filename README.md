@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+-----------------------------------------
+Audio Recorder App:
+Stretch Goals:
+Notate notes 
+User login/auth 
