@@ -4,6 +4,11 @@ class Api::V1::UsersController < ApplicationController
     def index
         @users = User.all
         render json: UserSerializer.new(@users)
+        #Another option to access associated attributes instead of adding them to the serializer 
+        #options = {
+            #include: [:recordings]
+        #}
+        #then you have to pass options into the render json line
     end
 
     def create
