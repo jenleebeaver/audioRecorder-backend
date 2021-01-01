@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-    has_many :recordings
+    has_many :recordings, dependent: :destroy
 end
