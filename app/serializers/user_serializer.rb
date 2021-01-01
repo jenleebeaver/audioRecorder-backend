@@ -3,4 +3,5 @@ class UserSerializer
   include FastJsonapi::ObjectSerializer
   attributes :name, :created_at, :updated_at, :recordings
   #recordings allows us to access the association 
+  #Note that the serializer allows associations depending on relationships
 end
