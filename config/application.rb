@@ -32,6 +32,7 @@ module AudioRecorder
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
+    #below code tells our app that it will be API only. Meaning it will only return json. 
     config.api_only = true
   end
 end
