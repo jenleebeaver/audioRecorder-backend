@@ -14,11 +14,7 @@ Recording.destroy_all
 jennifer = User.create(name: "Jennifer Beaver")
 taher = User.create(name: "Taher Ali")
 
-Jennifer_Recording1 = Recording.create(title: "NewRecordingJenniferBeaver", melody: "LaLa.wav/link", user_id: jennifer.id)
-<<<<<<< Updated upstream
-Jennifer_Recording2 = Recording.create(title: "NewRecordingJenniferBeaver2", melody: "ReRe.wav/link", user_id: jennifer.id)
+Jennifer_Recording1 = Recording.create(title: "NewRecordingJenniferBeaver", user_id: jennifer.id)
+# Jennifer_Recording2 = Recording.create(title: "NewRecordingJenniferBeaver2", audio: "ReRe.wav/link", user_id: jennifer.id)
 
-Taher_Recording = Recording.create(title: "NewRecordingTaherAli", melody: "DoDo.wav/link", user_id: taher.id)
-=======
-Taher_Recording1 = Recording.create(title: "NewRecordingTaherAli", melody: "DoDo.wav/link", user_id: taher.id)
->>>>>>> Stashed changes
+# Taher_Recording = Recording.create(title: "NewRecordingTaherAli", audio: "DoDo.wav/link", user_id: taher.id)

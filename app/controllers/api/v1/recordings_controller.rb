@@ -7,6 +7,7 @@ class Api::V1::RecordingsController < ApplicationController
 
     def create
         @recording = Recording.new(recording_params)
+        @recording.audio.attach(params[:audio])
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
             render json: @recording, status: :accepted
@@ -22,7 +23,6 @@ class Api::V1::RecordingsController < ApplicationController
         #strong params allow only these attributes protects our data from injection attacks 
         params.require(:recording).permit(
             :title,
-            :melody,
             :created_at,
             :updated_at,
             :user_id
