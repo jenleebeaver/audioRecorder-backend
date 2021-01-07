@@ -7,7 +7,8 @@ class Api::V1::RecordingsController < ApplicationController
 
     def create
         @recording = Recording.new(recording_params)
-        @recording.audio.attach(params[:audio])
+        @recording.audio.attach(io: File.open('./storage'), filename: 'charlie_LAgirls.mp3')
+        puts @recording 
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
             render json: @recording, status: :accepted
