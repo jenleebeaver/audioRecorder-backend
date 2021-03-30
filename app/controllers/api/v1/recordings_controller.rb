@@ -6,9 +6,13 @@ class Api::V1::RecordingsController < ApplicationController
     end
 
     def create
-        @recording = Recording.new(recording_params)
-        @recording.audio.attach(io: File.open('./storage'), filename: 'charlie_LAgirls.mp3')
-        puts @recording 
+        parsed_json = ActiveSupport::JSON.decode(params[:recording])
+        # @recording = Recording.new(recording_params)
+        active_storage_attachments = params[:active_storage_attachments]
+        puts active_storage_attachments
+        @recording = Recording.create(title: parsed_json["title"], user_id: parsed_json["user_id"])
+        @recording.audio.attach(params[:active_storage_attachments])
+        puts @recording.audio.attach(params[:active_storage_attachments])
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
             render json: @recording, status: :accepted
@@ -21,12 +25,12 @@ class Api::V1::RecordingsController < ApplicationController
     private 
 
     def recording_params
-        #strong params allow only these attributes protects our data from injection attacks 
+        #strong params allow only these attributes protects our data from injection attacks
         params.require(:recording).permit(
             :title,
             :created_at,
             :updated_at,
-            :user_id
-        )
+            :user_id,
+            :audio [])
     end
 end
