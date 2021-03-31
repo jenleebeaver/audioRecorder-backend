@@ -21,15 +21,15 @@ class Api::V1::RecordingsController < ApplicationController
         end
     end
 
-    # def audio
-    #     recording = Recording.find_by(id: params[:id])
-      
-    #     if recording&.audio&.attached?
-    #       redirect_to rails_blob_url(user.audio)
-    #     else
-    #       head :not_found
-    #     end
-    #   end
+    def audio
+        @recording = Recording.find_by(id: params[:id])
+
+        if recording&.audio&.attached?
+          redirect_to rails_representation_url(recording.audio)
+        else
+          head :not_found
+        end
+      end
 
     private 
 
