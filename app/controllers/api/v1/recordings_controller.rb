@@ -12,7 +12,6 @@ class Api::V1::RecordingsController < ApplicationController
         puts active_storage_attachments
         @recording = Recording.create(title: parsed_json["title"], user_id: parsed_json["user_id"])
         @recording.audio.attach(params[:active_storage_attachments])
-        puts @recording.audio.attach(params[:active_storage_attachments])
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
             render json: @recording, status: :accepted
@@ -21,6 +20,16 @@ class Api::V1::RecordingsController < ApplicationController
             #unprocessible_entity is telling us we are unable to process instructions 
         end
     end
+
+    # def audio
+    #     recording = Recording.find_by(id: params[:id])
+      
+    #     if recording&.audio&.attached?
+    #       redirect_to rails_blob_url(user.audio)
+    #     else
+    #       head :not_found
+    #     end
+    #   end
 
     private 
 
