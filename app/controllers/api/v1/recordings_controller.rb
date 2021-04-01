@@ -8,19 +8,19 @@ class Api::V1::RecordingsController < ApplicationController
     def create
         parsed_json = ActiveSupport::JSON.decode(params[:recording])
         # @recording = Recording.new(recording_params)
-        active_storage_attachments = params[:active_storage_attachments]
-        puts active_storage_attachments
-        @recording = Recording.create(title: parsed_json["title"], user_id: parsed_json["user_id"])
-        @recording.audio.attach(params[:active_storage_attachments])
+        @recording = Recording.create(title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"])
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
             render json: @recording, status: :accepted
         else
-            render json: {errors: recording.errors.full_messages}, status: :unprocessible_entity
+            render json: {errors: @recording.errors.full_messages}, status: :unproce
+            
+            ssible_entity
             #unprocessible_entity is telling us we are unable to process instructions 
         end
     end
 
+    # //activestorage 
     def audio
         @recording = Recording.find_by(id: params[:id])
 
@@ -29,7 +29,7 @@ class Api::V1::RecordingsController < ApplicationController
         else
           head :not_found
         end
-      end
+    end
 
     private 
 
@@ -40,6 +40,7 @@ class Api::V1::RecordingsController < ApplicationController
             :created_at,
             :updated_at,
             :user_id,
+            :audio_url,
             :audio [])
     end
 end
