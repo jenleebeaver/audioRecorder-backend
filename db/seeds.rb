@@ -14,7 +14,7 @@ Recording.destroy_all
 jennifer = User.create(name: "Jennifer Beaver")
 taher = User.create(name: "Taher Ali")
 
-Jennifer_Recording1 = Recording.create(title: "NewRecordingJenniferBeaver", user_id: jennifer.id)
-Jennifer_Recording2 = Recording.create(title: "NewRecordingJenniferBeaver2", user_id: jennifer.id)
+Jennifer_Recording1 = Recording.create(title: "NewRecordingJenniferBeaver",audio_url: "testdata", user_id: jennifer.id)
+Jennifer_Recording2 = Recording.create(title: "NewRecordingJenniferBeaver2",audio_url: "testdata", user_id: jennifer.id)
 
-# Taher_Recording = Recording.create(title: "NewRecordingTaherAli", audio: "DoDo.wav/link", user_id: taher.id)
+Taher_Recording = Recording.create(title: "NewRecordingTaherAli", audio_url: "DoDo.wav/link", user_id: taher.id)

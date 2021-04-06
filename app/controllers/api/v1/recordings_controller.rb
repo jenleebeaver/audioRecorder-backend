@@ -6,16 +6,15 @@ class Api::V1::RecordingsController < ApplicationController
     end
 
     def create
-        parsed_json = ActiveSupport::JSON.decode(params[:recording])
-        # @recording = Recording.new(recording_params)
+        parsed_json = ActiveSupport::JSON.decode(params[:recording]) 
+        puts parsed_json
+        @recording = Recording.new(parsed_json)
         @recording = Recording.create(title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"])
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
             render json: @recording, status: :accepted
         else
-            render json: {errors: @recording.errors.full_messages}, status: :unproce
-            
-            ssible_entity
+            render json: {errors: @recording.errors.full_messages}, status: :unprocessible_entity
             #unprocessible_entity is telling us we are unable to process instructions 
         end
     end
