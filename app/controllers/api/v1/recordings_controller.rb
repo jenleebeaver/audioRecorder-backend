@@ -19,6 +19,15 @@ class Api::V1::RecordingsController < ApplicationController
         end
     end
 
+    def edit
+        @recording = current_user.recordings.find(params[:id])   
+      end
+      
+      def update    
+        @recording = current_user.recordings.find(params[:id])
+        @recording.update_attributes(recording_params)   
+      end
+
     # //activestorage 
     def audio
         @recording = Recording.find_by(id: params[:id])
