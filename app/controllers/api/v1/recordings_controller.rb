@@ -20,11 +20,13 @@ class Api::V1::RecordingsController < ApplicationController
     end
 
     def edit
-        @recording = current_user.recordings.find(params[:id])   
+        @recording = recordings.find(params[:id])
+        # add current_user login   
       end
       
-      def update    
-        @recording = current_user.recordings.find(params[:id])
+      def update
+         # add current_user login     
+        @recording = recordings.find(params[:id])
         @recording.update_attributes(recording_params)   
       end
 
