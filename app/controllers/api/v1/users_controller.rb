@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
             #using built-in rails status codes 
             render json: { user: UserSerializer.new(@user) }, status: :created
         else
-            render json: {errors: user.errors.full_messages}, status: :unprocessible_entity
+            render json: {error: 'failed to create user'}, status: :not_acceptable
             #unprocessible_entity is telling us we are unable to process instructions: httpstatus.com
         end
     end
@@ -32,8 +32,7 @@ class Api::V1::UsersController < ApplicationController
             :name,
             :email,
             :password,
-            :image_url,
-            :password_digest
+            :image_url
         )
     end
 end
