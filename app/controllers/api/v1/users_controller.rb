@@ -13,10 +13,11 @@ class Api::V1::UsersController < ApplicationController
 
     def create
         #creating new User and render the data or errors if it fails 
-        @user = User.new(user_params)
-        if @user.save
-            #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
-            render json: @user, status: :accepted
+        # @user = User.new(user_params)
+        @user = User.create(user_params)
+        if @user.valid?
+            #using built-in rails status codes 
+            render json: { user: UserSerializer.new(@user) }, status: :created
         else
             render json: {errors: user.errors.full_messages}, status: :unprocessible_entity
             #unprocessible_entity is telling us we are unable to process instructions: httpstatus.com
