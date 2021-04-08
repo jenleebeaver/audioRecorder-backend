@@ -6,10 +6,12 @@ class Api::V1::RecordingsController < ApplicationController
     end
 
     def create
-        # parsed_json = ActiveSupport::JSON.decode(params[:recording]) 
+        parsed_json = ActiveSupport::JSON.decode(params[:recording]) 
         # puts parsed_json
-        @recording = Recording.new(recording_params)
-        #@recording = Recording.create(title: ["title"], user_id: ["user_id"], audio_url: ["audio_url"])
+        # @recording = Recording.new(recording_params)
+        # puts parsed_json["audio_url"]
+        puts recording_params
+        @recording = Recording.create(title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"])
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
             render json: @recording, status: :accepted
@@ -50,7 +52,7 @@ class Api::V1::RecordingsController < ApplicationController
             :created_at,
             :updated_at,
             :user_id,
-            :audio_url,
+            :audio_url
             # :audio []
             )
     end
