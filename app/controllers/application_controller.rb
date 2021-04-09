@@ -14,6 +14,11 @@ class ApplicationController < ActionController::API
         JWT.encode(payload, 'my_s3cr3t')
     end
 
+    def auth_header
+        # { Authorization: 'Bearer <token>' }
+        request.headers['Authorization']
+    end
+
     #`JWT.decode` takes three args:
     #JWT as a string 
     #application secret 
