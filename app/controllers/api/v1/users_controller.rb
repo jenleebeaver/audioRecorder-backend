@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-    before_action :find_note, only: [:update]
+    skip_before_action :authorized, only: [:create]
 
     def index
         @users = User.all
@@ -16,8 +16,11 @@ class Api::V1::UsersController < ApplicationController
         # @user = User.new(user_params)
         @user = User.create(user_params)
         if @user.valid?
+            #create token, encode token, and passing payload of user_id
+            @token = encode_token(user_id: @user.id)
             #using built-in rails status codes 
-            render json: { user: UserSerializer.new(@user) }, status: :created
+            #jwt key is in json as a token (string)
+            render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
         else
             render json: {error: 'failed to create user'}, status: :not_acceptable
             #unprocessible_entity is telling us we are unable to process instructions: httpstatus.com
