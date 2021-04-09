@@ -27,7 +27,7 @@ class ApplicationController < ActionController::API
             #begin/rescue allows us to rescue out of an exception in Ruby 
             begin
                 #JWT as a string, app secret, and hashing algorithm
-                JWT.decode(token, 'my_s3cr3t', true. algorithm: 'HS256')
+                JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
             rescue JWT::DecodeError
                 nil
             end

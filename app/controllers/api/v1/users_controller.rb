@@ -38,4 +38,5 @@ class Api::V1::UsersController < ApplicationController
             :image_url
         )
     end
+    
 end
