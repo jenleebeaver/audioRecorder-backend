@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :create]
       get '/login', to: 'auth#create' 
       post '/login', to: 'auth#create'
+      get '/profile', to: 'users#profile'
       resources :recordings, only: [:index, :create, :edit, :update] do
         get :audio, on: :member
       end
