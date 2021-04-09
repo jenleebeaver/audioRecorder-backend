@@ -1,4 +1,5 @@
 class Api::V1::RecordingsController < ApplicationController
+    skip_before_action :authorized, only: [:index]
 
     def index
         @recordings = Recording.all
