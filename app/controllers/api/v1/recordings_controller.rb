@@ -2,8 +2,12 @@ class Api::V1::RecordingsController < ApplicationController
     skip_before_action :authorized, only: [:index]
 
     def index
-        @recordings = Recording.all
-        render json: RecordingSerializer.new(@recordings)
+        # if current_user
+            @recordings = Recording.all
+            # @recording = current_user(@recordings)
+            # @recordings = Recording.find_by(:user_id)
+            render json: RecordingSerializer.new(@recordings)
+        # end
     end
 
     def create

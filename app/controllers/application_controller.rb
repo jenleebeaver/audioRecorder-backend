@@ -47,6 +47,8 @@ class ApplicationController < ActionController::API
             user_id = decode_token[0]['user_id']
             #using user_id to find our user
             @user = User.find_by(id: user_id)
+        else
+            render json: { message: 'Did not find user.' }, status: :unathorized unless logged_in?
         end
     end
 
