@@ -1,5 +1,5 @@
 class Api::V1::RecordingsController < ApplicationController
-    skip_before_action :authorized, only: [:index, :create]
+    skip_before_action :authorized, only: [:index, :create, :update, :destroy]
 
     def index
         # if current_user
@@ -12,11 +12,22 @@ class Api::V1::RecordingsController < ApplicationController
     end
 
     def create
-        parsed_json = ActiveSupport::JSON.decode(params[:recording]) 
-        # @recording = Recording.new(recording_params)
-        # puts recording_params
+       
+        # parsed_json = ActiveSupport::JSON.decode(params[:recording])
+        # # hash = recording_params
+        # # hash = JSON.parse(hash) if hash.is_a?(String)
+        # # @recording = Recording.new(hash) 
+        # # puts recording_params
+        # # JSON.stringify({ name : "AA" })
+        # recording = JSON.stringify({ title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"] })
         # @recording = Recording.create(recording_params)
-        @recording = Recording.create(title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"])
+        # title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"]
+        token = params['user_id'];
+        @payload = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
+        user_id = @payload[0]['user_id']
+        
+        # parsed_json = ActiveSupport::JSON.decode(params[:recording])
+        @recording = Recording.create({title: params["title"], user_id: user_id, audio_url: params["audio_url"]})  
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
             render json: @recording, status: :accepted
@@ -37,6 +48,11 @@ class Api::V1::RecordingsController < ApplicationController
         @recording.update_attributes(recording_params)   
       end
 
+      def destroy 
+        @recording = Recording.find_by(id: params[:id])
+        @recording.destroy
+      end
+
     # //activestorage 
     def audio
         @recording = Recording.find_by(id: params[:id])
@@ -49,6 +65,10 @@ class Api::V1::RecordingsController < ApplicationController
     end
 
     private 
+
+    # build find_by helper method
+    # def find_by     
+    # end
 
     def recording_params
         #strong params allow only these attributes protects our data from injection attacks
