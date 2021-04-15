@@ -1,21 +1,22 @@
 class Api::V1::RecordingsController < ApplicationController
-    skip_before_action :authorized, only: [:index]
+    skip_before_action :authorized, only: [:index, :create]
 
     def index
         # if current_user
             @recordings = Recording.all
-            # @recording = current_user(@recordings)
+            # think about auth_controller
+            # @recordings = profile.recordings
             # @recordings = Recording.find_by(:user_id)
             render json: RecordingSerializer.new(@recordings)
         # end
     end
 
     def create
-        # parsed_json = ActiveSupport::JSON.decode(params[:recording]) 
-        @recording = Recording.new(recording_params)
-        puts recording_params
-        @recording = Recording.create(recording_params)
-        # @recording = Recording.create(title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"])
+        parsed_json = ActiveSupport::JSON.decode(params[:recording]) 
+        # @recording = Recording.new(recording_params)
+        # puts recording_params
+        # @recording = Recording.create(recording_params)
+        @recording = Recording.create(title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"])
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
             render json: @recording, status: :accepted

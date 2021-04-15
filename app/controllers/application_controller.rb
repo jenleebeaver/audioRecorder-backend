@@ -48,7 +48,7 @@ class ApplicationController < ActionController::API
             #using user_id to find our user
             @user = User.find_by(id: user_id)
         else
-            render json: { message: 'Did not find user.' }, status: :unathorized unless logged_in?
+            render json: { message: 'Did not find user.' }, status: :unauthorized 
         end
     end
 
