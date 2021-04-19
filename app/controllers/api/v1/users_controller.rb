@@ -32,6 +32,7 @@ class Api::V1::UsersController < ApplicationController
 
     def user_params
         #strong params allow only these attributes protects our data from injection attacks 
+        #will have to add :password_confirmation for signup feature 
         params.require(:user).permit(
             :name,
             :email,
