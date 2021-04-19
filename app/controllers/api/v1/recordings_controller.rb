@@ -1,9 +1,15 @@
 class Api::V1::RecordingsController < ApplicationController
     skip_before_action :authorized, only: [:index, :create, :update, :destroy]
+    include ApplicationHelper
 
     def index
+        # byebug
+        token = params['user_id'];
+        @payload = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
+        user_id = @payload[0]['user_id']
         # if current_user
-            @recordings = Recording.all
+            @recordings = Recording.find_by({user_id: user_id})
+            # @recordings = Recording.all
             # think about auth_controller
             # @recordings = profile.recordings
             # @recordings = Recording.find_by(:user_id)
@@ -44,18 +50,18 @@ class Api::V1::RecordingsController < ApplicationController
       
       def update
          # add current_user login    
-        @recording = Recording.find_by(id: params[:id])
+        find_by
         @recording.update_attributes(recording_params)   
       end
 
       def destroy 
-        @recording = Recording.find_by(id: params[:id])
+        find_by
         @recording.destroy
       end
 
     # //activestorage 
     def audio
-        @recording = Recording.find_by(id: params[:id])
+        find_by
 
         if recording&.audio&.attached?
           redirect_to rails_representation_url(recording.audio)
@@ -67,8 +73,9 @@ class Api::V1::RecordingsController < ApplicationController
     private 
 
     # build find_by helper method
-    # def find_by     
-    # end
+    def find_by
+        @recording = Recording.find_by(id: params[:id])     
+    end
 
     def recording_params
         #strong params allow only these attributes protects our data from injection attacks
@@ -81,4 +88,5 @@ class Api::V1::RecordingsController < ApplicationController
             # :audio []
             )
     end
+
 end

@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
     skip_before_action :authorized, only: [:create]
+    include ApplicationHelper
 
     def index
         @users = User.all

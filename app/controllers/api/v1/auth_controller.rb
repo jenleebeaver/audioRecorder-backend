@@ -1,5 +1,6 @@
 class Api::V1::AuthController < ApplicationController
     skip_before_action :authorized, only: [:create]
+    include ApplicationHelper
 
     def profile
         #using current_user helper in ApplicationController
