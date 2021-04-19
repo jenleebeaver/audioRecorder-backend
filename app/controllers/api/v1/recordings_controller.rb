@@ -3,13 +3,13 @@ class Api::V1::RecordingsController < ApplicationController
     include ApplicationHelper
 
     def index
-        # byebug
-        token = params['user_id'];
-        @payload = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
-        user_id = @payload[0]['user_id']
-        # if current_user
-            @recordings = Recording.find_by({user_id: user_id})
-            # @recordings = Recording.all
+       # Below code test code for finding current_user.recordings
+        # token = params['user_id'];
+        # @payload = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
+        # user_id = @payload[0]['user_id']
+        # # if current_user
+        #     @recordings = Recording.find_by({user_id: user_id})
+            @recordings = Recording.all
             # think about auth_controller
             # @recordings = profile.recordings
             # @recordings = Recording.find_by(:user_id)
