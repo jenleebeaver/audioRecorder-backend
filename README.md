@@ -1,29 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Backend for audioRecorder application. 
 
-Things you may want to cover:
+Run using `rails s`
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
 -----------------------------------------
-Audio Recorder App:
 Stretch Goals:
-Notate notes 
-User login/auth 
+Notate music notes 
+Signup feature  
