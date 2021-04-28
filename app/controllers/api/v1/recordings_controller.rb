@@ -62,7 +62,6 @@ class Api::V1::RecordingsController < ApplicationController
     # //activestorage 
     def audio
         find_by
-
         if recording&.audio&.attached?
           redirect_to rails_representation_url(recording.audio)
         else
