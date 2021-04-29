@@ -18,21 +18,9 @@ class Api::V1::RecordingsController < ApplicationController
     end
 
     def create
-       
-        # parsed_json = ActiveSupport::JSON.decode(params[:recording])
-        # # hash = recording_params
-        # # hash = JSON.parse(hash) if hash.is_a?(String)
-        # # @recording = Recording.new(hash) 
-        # # puts recording_params
-        # # JSON.stringify({ name : "AA" })
-        # recording = JSON.stringify({ title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"] })
-        # @recording = Recording.create(recording_params)
-        # title: parsed_json["title"], user_id: parsed_json["user_id"], audio_url: parsed_json["audio_url"]
         token = params['user_id'];
         @payload = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
         user_id = @payload[0]['user_id']
-        
-        # parsed_json = ActiveSupport::JSON.decode(params[:recording])
         @recording = Recording.create({title: params["title"], user_id: user_id, audio_url: params["audio_url"]})  
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
