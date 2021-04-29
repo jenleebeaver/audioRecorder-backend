@@ -1,10 +1,8 @@
-# README
+# Audio Recorder
 
 Backend for audioRecorder application. 
 
+## Configuration 
 Run using `rails s`
 
------------------------------------------
-Stretch Goals:
-Notate music notes 
-Signup feature  
+
