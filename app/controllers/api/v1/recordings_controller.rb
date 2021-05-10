@@ -21,9 +21,11 @@ class Api::V1::RecordingsController < ApplicationController
         token = params['user_id'];
         @payload = JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
         user_id = @payload[0]['user_id']
-        @recording = Recording.create({title: params["title"], user_id: user_id, audio_url: params["audio_url"]})  
+        @recording = Recording.create({title: params["title"], user_id: user_id, audio_url: params["audio_url"]}) 
+        # @recording = Recording.new(recording_params) 
         if @recording.save
             #status accepted allows us to send status codes with our fetch request - accepted/rejected and why 
+            # render json: RecordingSerializer.new(@recording),
             render json: @recording, status: :accepted
         else
             render json: {errors: @recording.errors.full_messages}, status: :unprocessible_entity

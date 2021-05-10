@@ -11,7 +11,7 @@
 User.destroy_all
 Recording.destroy_all 
 
-jennifer = User.create(name: "Jennifer Beaver", email:"jen.lee.beaver@gmail.com", password: "hello101", image_url: "https://en.wikipedia.org/wiki/File:Judith_1_(cropped).jpg")
+jennifer = User.create(name: "Jennifer Beaver", email:"jen@gmail.com", password: "123456789", image_url: "https://en.wikipedia.org/wiki/File:Judith_1_(cropped).jpg")
 taher = User.create(name: "Taher Ali", email:"taher@gmail.com", password: "123456789", image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gustav_Klimt_014.jpg/440px-Gustav_Klimt_014.jpg")
 
 Jennifer_Recording1 = Recording.create(title: "NewRecordingJenniferBeaver",audio_url: "testdata", user_id: jennifer.id)
